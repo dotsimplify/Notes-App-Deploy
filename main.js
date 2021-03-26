@@ -11,10 +11,11 @@ const search = document.getElementById("search");
 
 search.addEventListener("input", () => {
   let val = search.value;
+  noteBox.classList.add("hidden");
   let allNotes = Array.from(document.getElementsByClassName("title-div"));
   allNotes.forEach((element) => {
-    let result = element.getElementsByTagName("p")[0].innerText;
-    let result2 = element.getElementsByTagName("p")[1].innerText;
+    let result = element.getElementsByTagName("p")[0].innerText.toLowerCase();
+    let result2 = element.getElementsByTagName("p")[1].innerText.toLowerCase();
     if (result.includes(val) || result2.includes(val)) {
       element.style.display = "block";
     } else {
@@ -35,7 +36,7 @@ const gridNote = () => {
   let template = "";
   notesObj.forEach((note, index) => {
     //   template which will be populated in dom after adding new note
-    template += `      <div class="border-2 bg-white title-div border-blue-400 text-center p-4 rounded-md">
+    template += `<div class="border-2 bg-white title-div border-blue-400 text-center p-4 rounded-md">
     <p class="text-xl m-2 font-semibold break-words title ">${note.title}</p>
     <p class="text-md text-left break-words body">${note.body}
     </p>
@@ -52,9 +53,7 @@ const gridNote = () => {
   </div>`;
   });
   let grid = document.getElementById("grid");
-  if (notesArray.length != 0) {
-    grid.innerHTML = template;
-  }
+  grid.innerHTML = template;
 };
 // calling function to show notes
 gridNote();
